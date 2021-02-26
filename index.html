@@ -30,8 +30,6 @@
             var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000)
             camera.position.set(10,10,40);
             var renderer = new THREE.WebGLRenderer({antialias: true});
-                renderer.setClearColor("#b7d6eb");
-                //color of background ^
             renderer.setSize(window.innerWidth,window.innerHeight);
             document.body.appendChild(renderer.domElement);
             window.addEventListener('resize', () => {
@@ -43,8 +41,7 @@
             var controls = new THREE.OrbitControls( camera, renderer.domElement );
             controls.enableDamping=true;
             controls.screenSpacePanning = false;
-            controls.minDistance = 20;
-            controls.maxDistance = 50;
+            controls.maxDistance = 30;
             controls.maxPolarAngle = Math.PI / 2;
             controls.update();
             // https://www.youtube.com/watch?v=cNCGdy8I8QQ
@@ -55,8 +52,8 @@
                 obj = object.scene;
                 scene.add(object.scene);
             });
-            scene.background = new THREE.Color(0xffffff);
-            var light = new THREE.HemisphereLight(0xffffff, 0x000000, 2);
+            scene.background = new THREE.Color("#b7d6eb");
+            var light = new THREE.AmbientLight("#ecccf0");
             scene.add(light);
             
             function render() {
