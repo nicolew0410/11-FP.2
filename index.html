@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- CSS -->
+        <style>
+            body{
+                margin:0;
+            }
+            canvas{
+                display:block;
+            }
+        </style>
+        
+        <title>3D Model</title>
+    </head>
+    <body>
+        <!-- HTML -->
+        <!-- JS -->
+        <!-- <script src="three-2.js"></script> -->
+        <script src="three.js"></script>
+        <script type="module" src = "GLTFLoader.js"></script>
+        <script type = "module" src="OrbitControls.js"></script>
+        <script type="module">
+            import {GLTFLoader} from "./GLTFLoader.js";
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000)
+            camera.position.set(10,10,40);
+            var renderer = new THREE.WebGLRenderer({antialias: true});
+                renderer.setClearColor("#b7d6eb");
+                //color of background ^
+            renderer.setSize(window.innerWidth,window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+            window.addEventListener('resize', () => {
+                renderer.setSize(window.innerWidth,window.innerHeight);
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+            })
+            
+            var controls = new THREE.OrbitControls( camera, renderer.domElement );
+            controls.enableDamping=true;
+            controls.screenSpacePanning = false;
+            controls.minDistance = 20;
+            controls.maxDistance = 50;
+            controls.maxPolarAngle = Math.PI / 2;
+            controls.update();
+            // https://www.youtube.com/watch?v=cNCGdy8I8QQ
+            
+            var loader = new GLTFLoader();
+            var obj;
+            loader.load("LAST.gltf", function(object){
+                obj = object.scene;
+                scene.add(object.scene);
+            });
+            scene.background = new THREE.Color(0xffffff);
+            var light = new THREE.HemisphereLight(0xffffff, 0x000000, 2);
+            scene.add(light);
+            
+            function render() {
+                requestAnimationFrame(render);
+                renderer.render(scene, camera);
+                controls.update();
+            }
+            render();
+            
+        </script>
+        
+    </body>
+</html>
