@@ -29,7 +29,7 @@
             import {GLTFLoader} from "./GLTFLoader.js";
             var scene = new THREE.Scene();
             var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000)
-            camera.position.set(10,10,40);
+            camera.position.set(10,30,20);
             var renderer = new THREE.WebGLRenderer({antialias: true});
             renderer.setSize(window.innerWidth,window.innerHeight);
             document.body.appendChild(renderer.domElement);
@@ -43,19 +43,31 @@
             controls.enableDamping=true;
             controls.screenSpacePanning = false;
             controls.maxDistance = 30;
-            controls.maxPolarAngle = Math.PI / 2;
+            controls.maxPolarAngle = Math.PI / 2.8;
             controls.update();
             // https://www.youtube.com/watch?v=cNCGdy8I8QQ
             
             var loader = new GLTFLoader();
             var obj;
-            loader.load("LAST.gltf", function(object){
+            loader.load("magicIsland.glb", function(object){
                 obj = object.scene;
+                obj.position.z = 12.8971 ;
+                obj.position.y = -3;
+                obj.position.x = 0;
                 scene.add(object.scene);
             });
+            var spotLight = new THREE.SpotLight("#FFC5B1")
+
+            spotLight.position.set( 0.4982 , 70.32728 , 90.7961  );
+            spotLight.power = 5;
+			spotLight.angle = Math.PI / 1;
+			spotLight.decay = -5;
+			spotLight.distance = .2;
+			spotLight.castShadow = true;
+
             scene.background = new THREE.Color("#b7d6eb");
-            var light = new THREE.AmbientLight("#ecccf0");
-            scene.add(light);
+            // var light = new THREE.AmbientLight("#FFC5B1");
+            scene.add(spotLight);
             
             function render() {
                 requestAnimationFrame(render);
@@ -65,6 +77,7 @@
             render();
             
         </script>
+        
         
     </body>
 </html>
