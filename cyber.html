@@ -13,6 +13,7 @@
             canvas{
                 display:block;
             }
+            
         </style>
         
         <title>3D Model</title>
@@ -21,12 +22,12 @@
         <!-- HTML -->
         <!-- JS -->
         <!-- <script src="three-2.js"></script> -->
-        <script src="scr.js"></script>
         <script src="three.js"></script>
         <script type="module" src = "GLTFLoader.js"></script>
         <script type = "module" src="OrbitControls.js"></script>
         <script type="module">
             import {GLTFLoader} from "./GLTFLoader.js";
+            // Initial Setup
             var scene = new THREE.Scene();
             var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000)
             camera.position.set(10,30,20);
@@ -39,36 +40,52 @@
                 camera.updateProjectionMatrix();
             })
             
+            // User Controls
             var controls = new THREE.OrbitControls( camera, renderer.domElement );
             controls.enableDamping=true;
             controls.screenSpacePanning = false;
-            controls.maxDistance = 30;
+            controls.maxDistance = 50;
+            controls.minDistance = 25;
             controls.maxPolarAngle = Math.PI / 2.8;
             controls.update();
             // https://www.youtube.com/watch?v=cNCGdy8I8QQ
             
+            
+                
+
+            
+            // LOADER & Object
             var loader = new GLTFLoader();
             var obj;
-            loader.load("magicIsland.glb", function(object){
+            loader.load("cyber.glb", function(object){
                 obj = object.scene;
                 obj.position.z = 12.8971 ;
                 obj.position.y = -3;
                 obj.position.x = 0;
                 scene.add(object.scene);
             });
-            var spotLight = new THREE.SpotLight("#FFC19E")
+            
+            
+            // Lighting
+            var spotLight = new THREE.SpotLight("#ffb5e8")
 
             spotLight.position.set( 0.4982 , 70.32728 , 90.7961  );
-            spotLight.power = 5;
+            spotLight.power = 8.5;
 			spotLight.angle = Math.PI / 1;
-			spotLight.decay = -5;
-			spotLight.distance = .2;
+			spotLight.decay = -20;
+			spotLight.distance = 10;
 			spotLight.castShadow = true;
-
-            scene.background = new THREE.Color("#BCD2E6");
-            // var light = new THREE.AmbientLight("#FFC5B1");
-            scene.add(spotLight);
+			
+			
+    
+            var imageLoader = new THREE.TextureLoader();
+            const texture = imageLoader.load('imageBackground.jpg');
+            scene.background = texture;
             
+            scene.add(spotLight);
+             
+             
+            // Final Render
             function render() {
                 requestAnimationFrame(render);
                 renderer.render(scene, camera);
