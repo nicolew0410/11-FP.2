@@ -19,6 +19,16 @@
         <title>3D Model</title>
     </head>
     <body>
+        <!-- MUSIC -->
+        <script>
+           function playMusic(){
+              music.play();
+            }   
+            playMusic();
+         </script>
+        <audio id="music" loop src="cyberMusic.mp3" autoplay> </audio>
+        
+        
         <!-- HTML -->
         <!-- JS -->
         <!-- <script src="three-2.js"></script> -->
@@ -60,7 +70,7 @@
             loader.load("cyber.glb", function(object){
                 obj = object.scene;
                 obj.position.z = 12.8971 ;
-                obj.position.y = -3;
+                obj.position.y = -10;
                 obj.position.x = 0;
                 scene.add(object.scene);
             });
@@ -79,7 +89,7 @@
 			
     
             var imageLoader = new THREE.TextureLoader();
-            const texture = imageLoader.load('imageBackground.jpg');
+            const texture = imageLoader.load('cyberBackground.jpg');
             scene.background = texture;
             
             scene.add(spotLight);
@@ -87,11 +97,13 @@
              
             // Final Render
             function render() {
+                
                 requestAnimationFrame(render);
                 renderer.render(scene, camera);
                 controls.update();
             }
             render();
+            
             
         </script>
         
