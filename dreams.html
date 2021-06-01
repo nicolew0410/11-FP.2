@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- CSS -->
+        <style>
+            body{
+                margin:0;
+            }
+            canvas{
+                display:block;
+            }
+            
+        </style>
+        
+        <title>3D Model</title>
+    </head>
+    <body>
+        <!-- MUSIC -->
+        <script>
+           function playMusic(){
+              music.play();
+            }   
+            playMusic();
+         </script>
+        <audio id="music" loop src="dreamMusic.mp3" autoplay> </audio>
+        
+        
+        <!-- HTML -->
+        <!-- JS -->
+        <script src="dreamer.js"></script>
+        <script src="three.js"></script>
+        <script type="module" src = "GLTFLoader.js"></script>
+        <script type = "module" src="OrbitControls.js"></script>
+        <script type="module">
+            import {GLTFLoader} from "./GLTFLoader.js";
+            // Initial Setup
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000)
+            camera.position.set(10,30,20);
+            var renderer = new THREE.WebGLRenderer({antialias: true});
+            renderer.setSize(window.innerWidth,window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+            window.addEventListener('resize', () => {
+                renderer.setSize(window.innerWidth,window.innerHeight);
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+            })
+            
+            // User Controls
+            var controls = new THREE.OrbitControls( camera, renderer.domElement );
+            controls.enableDamping=true;
+            controls.screenSpacePanning = false;
+            /*controls.maxDistance = 50;
+            controls.minDistance = 25;*/
+            controls.maxPolarAngle = Math.PI / 2.8;
+            controls.update();
+            // https://www.youtube.com/watch?v=cNCGdy8I8QQ
+            
+            
+                
+
+            
+            // LOADER & Object
+            var loader = new GLTFLoader();
+            var obj;
+            loader.load("dreamingfurther.gltf", function(object){
+                obj = object.scene;
+                obj.position.z = 12.8971 ;
+                obj.position.y = -3;
+                obj.position.x = 0;
+                scene.add(object.scene);
+            });
+            
+            // Lighting
+            /*var spotLight = new THREE.SpotLight(0xb964e3)
+
+            spotLight.position.set(-150, 180, -50);
+            spotLight.power = 40;
+			spotLight.angle = Math.PI / 2;
+			spotLight.decay = -50;
+			spotLight.distance = 100;
+			
+			scene.add(spotLight);*/
+			
+			var light = new THREE.PointLight(0xab54dc, 5, 100);
+            light.position.set(-100, 150, -50);
+            light.angle = Math.PI / 1;
+            light.decay = -50;
+            
+            scene.add( light );
+            
+            
+            /*var light = new THREE.HemisphereLight (0xf6bffa,0x765be3,1);
+			scene.add(light);*/
+    
+            var imageLoader = new THREE.TextureLoader();
+            const texture = imageLoader.load('dreamBackground.png');
+            scene.background = texture;
+            
+            
+             
+             
+            // Final Render
+            function render() {
+                requestAnimationFrame(render);
+                renderer.render(scene, camera);
+                controls.update();
+                camera.add( listener );
+            }
+            render();
+            
+            
+        </script>
+        
+        
+    </body>
+</html>

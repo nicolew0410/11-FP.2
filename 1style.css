@@ -1,0 +1,122 @@
+.text{
+  color: #e3e4ff;
+  font-size:35px;
+  font-family:pot;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+  background-color:rgba(10, 8, 9, .5);
+}
+@font-face{
+  font-family:pot;
+  src: url("Potra.1.ttf")
+}
+@font-face{
+  font-family:alp;
+  src: url("alp.ttf")
+}
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0}
+.mySlides {display: none}
+img {vertical-align: middle;}
+.slideshow-container {
+  max-width: 800px;
+  position: relative;
+  margin: auto;
+  border-width:22px;
+  border-color:#7f9fb8;
+  border-style:double;
+}
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+.text{
+  color: #f2f2f2;
+  font-size:35px;
+  font-family:pot;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+  background-color:rgba(10, 8, 9, .5);
+}
+
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color:#8ca9bf;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+.active, .dot:hover {
+  background-color: #68859c;
+}
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+.wire{
+  visibility:hidden;
+  font-size:10px;
+}
+.shadow:hover {
+  box-shadow: 0 12px 16px 0 rgba(196, 191, 222, 0.781),0 17px 50px 0 rgba(127, 125, 181, 0.884);
+}
+.buttonDesign{
+  background-color: #b19fc9;
+  border-style:double;
+  border-width:10px;
+  border-color:#74638a;
+  padding:10px 25px;
+  font-size:25px;
+  font-family:alp;
+  border-radius:12px;
+  cursor:pointer;
+}
+.wrapper {
+  display: flex;
+  justify-content: center;
+  cursor:pointer;
+  text-decoration:none;
+}

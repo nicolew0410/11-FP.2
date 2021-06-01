@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- CSS -->
+        <style>
+            body{
+                margin:0;
+            }
+            canvas{
+                display:block;
+            }
+            
+        </style>
+        
+        <title>3D Model</title>
+    </head>
+    <body>
+       <!-- MUSIC -->
+        <script>
+           function playMusic(){
+              music.play();
+            }   
+            playMusic();
+         </script>
+        <audio id="music" loop src="mushroomIslandMusic.mp3" autoplay> </audio>
+        
+        
+        <!-- HTML -->
+        <!-- JS -->
+        <!-- <script src="three-2.js"></script> -->
+        
+        <script src="scr.js"></script>
+        <script src="three.js"></script>
+        <script type="module" src = "GLTFLoader.js"></script>
+        <script type = "module" src="OrbitControls.js"></script>
+        <script type="module">
+            import {GLTFLoader} from "./GLTFLoader.js";
+            // Initial Setup
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000)
+            camera.position.set(10,30,20);
+            var renderer = new THREE.WebGLRenderer({antialias: true});
+            renderer.setSize(window.innerWidth,window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+            window.addEventListener('resize', () => {
+                renderer.setSize(window.innerWidth,window.innerHeight);
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+            })
+            
+            // User Controls
+            var controls = new THREE.OrbitControls( camera, renderer.domElement );
+            controls.enableDamping=true;
+            controls.screenSpacePanning = false;
+            controls.maxDistance = 30;
+            controls.minDistance = 25;
+            controls.maxPolarAngle = Math.PI / 2.8;
+            controls.update();
+            // https://www.youtube.com/watch?v=cNCGdy8I8QQ
+            
+            
+                
+
+            
+            // LOADER & Object
+            var loader = new GLTFLoader();
+            var obj;
+            loader.load("magicIsland.glb", function(object){
+                obj = object.scene;
+                obj.position.z = 12.8971 ;
+                obj.position.y = -3;
+                obj.position.x = 0;
+                scene.add(object.scene);
+            });
+            
+            // Lighting
+            var spotLight = new THREE.SpotLight("#ffa78a")
+
+            spotLight.position.set( 0.4982 , 70.32728 , 90.7961  );
+            spotLight.power = 6.5;
+			spotLight.angle = Math.PI / 1;
+			spotLight.decay = -20;
+			spotLight.distance = 10;
+			spotLight.castShadow = true;
+    
+            var imageLoader = new THREE.TextureLoader();
+            const texture = imageLoader.load('imageBackground.jpg');
+            scene.background = texture;
+            
+            scene.add(spotLight);
+             
+             
+            // Final Render
+            function render() {
+                requestAnimationFrame(render);
+                renderer.render(scene, camera);
+                controls.update();
+                camera.add( listener );
+            }
+            render();
+            
+            
+        </script>
+        
+        
+    </body>
+</html>
